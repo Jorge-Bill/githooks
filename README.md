@@ -1,3 +1,7 @@
+Inspired on [React Hooks](https://www.youtube.com/watch?v=6WB16wZS61c)
+
+Build to work sith REACT HOOOKS
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
