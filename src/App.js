@@ -46,7 +46,7 @@ function App() {
             <Card key={repo.id} className="card">
               <CardMedia
                 className="card-img"
-                image="https://picsum.photos/200/300"
+                image="https://loremflickr.com/640/360"
                 title="Test"
               />
               <CardContent className="content">
