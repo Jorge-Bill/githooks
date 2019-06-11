@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import {
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  Grid,
+  CardMedia,
+} from '@material-ui/core';
 
 function App() {
   const [repositories, setRepositories] = useState([]);
-  const [bookmark, setBookMark] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -16,9 +22,14 @@ function App() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const filtered = repositories.filter(repo => repo.bookmark);
+    document.title = `You have ${filtered.length} bookmarked`;
+  }, [repositories]);
+
   function handleBookMark(id) {
     const newRepositories = repositories.map(repo => {
-      return repo.id == id ? { ...repo, bookmark: !repo.bookmark } : repo;
+      return repo.id === id ? { ...repo, bookmark: !repo.bookmark } : repo;
     });
 
     setRepositories(newRepositories);
@@ -26,16 +37,34 @@ function App() {
 
   return (
     <>
-      <h1>Github - Repository List</h1>
-      <ul>
-        {repositories.map(repo => (
-          <li key={repo.id}>
-            {repo.name}
-            {repo.bookmark && <span>(Bookmarked)</span>}
-            <button onClick={() => handleBookMark(repo.id)}>BookMark</button>
-          </li>
-        ))}
-      </ul>
+      <Grid container className="main">
+        <Typography component="h1" className="main-text">
+          Github - Repository List
+        </Typography>
+        <Grid item className="cards-grid">
+          {repositories.map(repo => (
+            <Card key={repo.id} className="card">
+              <CardMedia
+                className="card-img"
+                image="https://picsum.photos/200/300"
+                title="Test"
+              />
+              <CardContent className="content">
+                <Typography className="card-title" component="h2">
+                  {repo.name}
+                </Typography>
+                <Button
+                  variant={repo.bookmark ? 'contained' : 'outlined'}
+                  color="primary"
+                  onClick={() => handleBookMark(repo.id)}
+                >
+                  {repo.bookmark ? 'Bookmarked' : 'BookMark'}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </Grid>
+      </Grid>
     </>
   );
 }
